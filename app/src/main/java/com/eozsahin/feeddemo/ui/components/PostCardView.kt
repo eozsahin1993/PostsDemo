@@ -26,27 +26,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.eozsahin.feeddemo.R
+import com.eozsahin.feeddemo.models.Post
 import com.eozsahin.feeddemo.ui.theme.AppTheme
 import com.eozsahin.feeddemo.ui.theme.AppTypography
 import com.google.android.material.chip.Chip
 
 @Preview()
 @Composable
-fun getPostCard() {
+fun getPostCard(post: Post) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp)
     ) {
         Column(modifier = Modifier.padding(15.dp)) {
-            getPostCardHeader()
-            getPostCardContent()
-            getPostCardFooter()
+            getPostCardHeader(post)
+            getPostCardContent(post)
+            getPostCardFooter(post)
         }
     }
 }
 
 @Composable
-fun getPostCardHeader() {
+fun getPostCardHeader(post: Post) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(5.dp)
@@ -71,15 +72,15 @@ fun getPostCardHeader() {
 }
 
 @Composable
-fun getPostCardContent() {
-    Column() {
+fun getPostCardContent(post: Post) {
+    Column {
         Text(
-            "Krea molestias quasi exercitationem repellat qui ipsa sit aut",
+            post.title,
             style = AppTypography.subtitle1,
             modifier = Modifier.padding(10.dp)
         )
         Text(
-            "t iusto sed quo iurenvoluptatem occaecati omnis eligendi aut adnvoluptatem doloribus vel accusantium quis pariaturnmolestiae porro eius odio et labore et velit aut",
+            post.body,
             modifier = Modifier.padding(start = 12.dp, end = 10.dp, bottom = 10.dp),
             style = AppTypography.caption
         )
@@ -87,7 +88,7 @@ fun getPostCardContent() {
 }
 
 @Composable
-fun getPostCardFooter() {
+fun getPostCardFooter(post: Post) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
