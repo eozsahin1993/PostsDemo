@@ -24,5 +24,4 @@ class UserRepository(private val service: BackendService) {
     }
 
     private suspend fun getUser(id: Int) = service.getUserWithId(id)
-
 }

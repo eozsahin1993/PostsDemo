@@ -30,20 +30,20 @@ import com.eozsahin.feeddemo.ui.theme.AppTypography
 import com.eozsahin.feeddemo.ui.viewmodels.HomeViewModel
 import com.google.accompanist.glide.rememberGlidePainter
 
-val screens = listOf(
+val drawerList = listOf(
     Pair(Icons.Rounded.Home, "Feed"),
     Pair(Icons.Rounded.Assignment, "My posts"),
     Pair(Icons.Rounded.Settings, "Settings"),
     Pair(Icons.Rounded.Logout, "Logout"))
 
 @Composable
-fun getDrawer(model: HomeViewModel, onOptionSelected: (String) -> Unit = {}) {
-    getDrawerContent(user = model.user.value, onOptionSelected = onOptionSelected)
+fun Drawer(model: HomeViewModel = HomeViewModel(), onOptionSelected: (String) -> Unit = {}) {
+    DrawerContent(user = model.user.value, onOptionSelected = onOptionSelected)
 }
 
 @Preview(showBackground = true)
 @Composable
-fun getDrawerContent(
+fun DrawerContent(
     @PreviewParameter(UserProvider::class) user: User,
     onOptionSelected: (String) -> Unit = {}
 ) {
@@ -93,7 +93,7 @@ fun DrawerOptions(onOptionSelected: (String) -> Unit = {}) {
             .padding(start = 70.dp, top = 20.dp)
     ) {
         Spacer(Modifier.height(20.dp))
-        for (screen in screens) {
+        for (screen in drawerList) {
             Spacer(Modifier.height(24.dp))
             Row(
                 Modifier.clickable { onOptionSelected(screen.second) },

@@ -1,22 +1,36 @@
 package com.eozsahin.feeddemo.ui.components
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.eozsahin.feeddemo.ui.navigation.Screen
+import kotlinx.coroutines.launch
 
 
-@Preview
 @Composable
-fun getTopBar( onClick: () -> Unit = { }) {
-    TopAppBar(title = { Text("Posts")
+fun TopBar(navController: NavController, scaffoldState: ScaffoldState) {
+    val scope = rememberCoroutineScope()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val title = Screen.getFromNav(navBackStackEntry).title
 
-    }, navigationIcon = {
-        IconButton(onClick = onClick) {
-            Icon(Icons.Filled.Menu,"")
+    TopAppBar(
+        title = { Text(title) },
+        navigationIcon = {
+            IconButton(
+                onClick = {
+                    scope.launch {
+                        val state = scaffoldState.drawerState
+                        if (state.isClosed) state.open() else state.close()
+                    }
+                }
+            ) {
+                Icon(Icons.Filled.Menu,"")
+            }
         }
-    })
+    )
 }

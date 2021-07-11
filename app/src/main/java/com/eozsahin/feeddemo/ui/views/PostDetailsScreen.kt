@@ -1,23 +1,21 @@
 package com.eozsahin.feeddemo.ui.views
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.eozsahin.feeddemo.ui.components.CommentView
-import com.eozsahin.feeddemo.ui.components.getPostCard
+import com.eozsahin.feeddemo.ui.components.PostCardView
 import com.eozsahin.feeddemo.ui.models.Comment
 import com.eozsahin.feeddemo.ui.models.Post
 import com.eozsahin.feeddemo.ui.models.PostDetail
-import com.eozsahin.feeddemo.ui.viewmodels.HomeViewModel
 import com.eozsahin.feeddemo.ui.viewmodels.PostDetailsViewModel
 
 @Composable
@@ -35,7 +33,7 @@ fun PostDetails(
     LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         items(list) {
             when (it) {
-                is Post -> getPostCard(post = postDetail.toPost(), shape = RoundedCornerShape(0.dp))
+                is Post -> PostCardView(post = postDetail.toPost(), shape = RoundedCornerShape(0.dp))
                 is Comment -> CommentView(it)
                 else -> Text("error")
             }

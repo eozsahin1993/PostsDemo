@@ -1,6 +1,5 @@
 package com.eozsahin.feeddemo.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,16 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.eozsahin.feeddemo.R
 import com.eozsahin.feeddemo.ui.models.Post
 import com.eozsahin.feeddemo.ui.theme.AppTypography
 import com.eozsahin.feeddemo.ui.theme.Red300
-import com.google.accompanist.glide.rememberGlidePainter
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-fun getPostCard(
+fun PostCardView(
     @PreviewParameter(PostProvider::class) post: Post,
     shape: Shape = RoundedCornerShape(20.dp),
     onTapped: () -> Unit = {}
@@ -42,15 +39,15 @@ fun getPostCard(
         onClick = onTapped
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
-            getPostCardHeader(post)
-            getPostCardContent(post)
-            getPostCardFooter(post)
+            PostCardViewHeader(post)
+            PostCardViewContent(post)
+            PostCardViewFooter(post)
         }
     }
 }
 
 @Composable
-fun getPostCardHeader(post: Post) {
+fun PostCardViewHeader(post: Post) {
     Row(modifier = Modifier.fillMaxWidth()) {
         UserProfile(
             profileImgUrl = post.userImgUrl,
@@ -69,7 +66,7 @@ fun getPostCardHeader(post: Post) {
 }
 
 @Composable
-fun getPostCardContent(post: Post) {
+fun PostCardViewContent(post: Post) {
     Column {
         Text(
             post.title,
@@ -86,7 +83,7 @@ fun getPostCardContent(post: Post) {
 }
 
 @Composable
-fun getPostCardFooter(post: Post) {
+fun PostCardViewFooter(post: Post) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -118,7 +115,7 @@ fun getPostCardFooter(post: Post) {
 
         Row(verticalAlignment =  Alignment.CenterVertically, horizontalArrangement = Arrangement.End) {
             IconButton(onClick = { /*TODO*/ }) {
-                Icon(Icons.Default.Share, contentDescription = "fd")
+                Icon(Icons.Default.Share, "")
             }
         }
     }

@@ -47,9 +47,4 @@ interface BackendService {
 
     @GET("/users/{id}")
     suspend fun getUserWithId(@Path("id") userId: Int): UserData
-
-
-
-
-
 }
