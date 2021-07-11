@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
@@ -18,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -29,15 +27,19 @@ import com.eozsahin.feeddemo.ui.theme.AppTypography
 import com.eozsahin.feeddemo.ui.theme.Red300
 import com.google.accompanist.glide.rememberGlidePainter
 
+@OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
-fun getPostCard(@PreviewParameter(PostProvider::class) post: Post) {
+fun getPostCard(
+    @PreviewParameter(PostProvider::class) post: Post,
+    shape: Shape = RoundedCornerShape(20.dp),
+    onTapped: () -> Unit = {}
+) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 15.dp, end = 15.dp, top = 15.dp),
-        shape = RoundedCornerShape(20.dp),
-        elevation = 2.dp
+        modifier = Modifier.fillMaxWidth(),
+        shape = shape,
+        elevation = 2.dp,
+        onClick = onTapped
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             getPostCardHeader(post)
@@ -126,6 +128,7 @@ class PostProvider: PreviewParameterProvider<Post> {
     override val values = sequenceOf(getPreviewPost())
 
     private fun getPreviewPost() = Post(
+        id = 1,
         title = "This is a post title",
         body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
         likes = 15,

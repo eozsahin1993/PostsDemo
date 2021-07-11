@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class UserRepository(private val service: BackendService) {
 
-    fun getUser(id: Int, callback: (User) -> Unit) {
+    fun getUser(id: Int, callback: suspend (User) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             val userData = getUser(id)
             val user = User(

@@ -33,12 +33,12 @@ fun UserProfile(
         modifier = Modifier.padding(5.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background), // FOR PREVIEW
-            //        painter = rememberGlidePainter(
-            //            profileImgUrl,
-            //            fadeIn = true,
-            //            previewPlaceholder = R.drawable.abc_vector_test
-            //        ),
+//            painter = painterResource(id = R.drawable.ic_launcher_background), // FOR PREVIEW
+            painter = rememberGlidePainter(
+                profileImgUrl,
+                fadeIn = true,
+                previewPlaceholder = R.drawable.abc_vector_test
+            ),
             contentDescription = "UserImage",
             modifier = imageModifier
         )

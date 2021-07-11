@@ -18,7 +18,7 @@ class PostRepository(
     }
     // add caching as well
 
-     fun getPosts(callback: (List<Post>) -> Unit) {
+     fun getPosts(callback: suspend (List<Post>) -> Unit) {
          CoroutineScope(Dispatchers.IO).launch {
              val postData = getAllPosts().shuffled()
              val commentData = getAllComments()
@@ -28,6 +28,7 @@ class PostRepository(
                  val postComments = commentData.filter { it.postId == post.id }
 
                  Post(
+                     id = post.id,
                      title = post.title,
                      body = post.body,
                      likes = (1..100).random(),

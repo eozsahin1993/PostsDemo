@@ -22,3 +22,7 @@ fun getPostRepository(): PostRepository {
 fun getUserRepository(): UserRepository {
     return UserRepository(api)
 }
+
+fun getPostDetailRepository(): PostDetailRepository {
+    return PostDetailRepository(api)
+}
