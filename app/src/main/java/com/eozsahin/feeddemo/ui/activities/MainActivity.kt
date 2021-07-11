@@ -1,14 +1,17 @@
 package com.eozsahin.feeddemo.ui.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material.*
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.graphics.Color
+import com.eozsahin.feeddemo.ui.components.getDrawer
 import com.eozsahin.feeddemo.ui.components.getFAB
 import com.eozsahin.feeddemo.ui.components.getTopBar
+import com.eozsahin.feeddemo.ui.models.User
 import com.eozsahin.feeddemo.ui.theme.AppTheme
 import com.eozsahin.feeddemo.ui.viewmodels.HomeViewModel
 import com.eozsahin.feeddemo.ui.views.homeScreen
@@ -39,7 +42,9 @@ class MainActivity : ComponentActivity() {
                         getFAB()
                     },
                     drawerContent = { Surface(color = Color.White) {
-                        Text(text = "drawerContent")
+                        getDrawer(model = viewModel) {
+                            Toast.makeText(this@MainActivity, it, Toast.LENGTH_LONG).show()
+                        }
                     }},
                     content = {
                         homeScreen(model = viewModel)

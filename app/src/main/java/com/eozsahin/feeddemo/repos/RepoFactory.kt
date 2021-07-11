@@ -18,3 +18,7 @@ val api = retrofit.create(BackendService::class.java)
 fun getPostRepository(): PostRepository {
     return PostRepository(api)
 }
+
+fun getUserRepository(): UserRepository {
+    return UserRepository(api)
+}

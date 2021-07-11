@@ -33,7 +33,9 @@ import com.google.accompanist.glide.rememberGlidePainter
 @Composable
 fun getPostCard(@PreviewParameter(PostProvider::class) post: Post) {
     Card(
-        modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 15.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 15.dp, end = 15.dp, top = 15.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = 2.dp
     ) {
@@ -47,31 +49,12 @@ fun getPostCard(@PreviewParameter(PostProvider::class) post: Post) {
 
 @Composable
 fun getPostCardHeader(post: Post) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(5.dp)
-    ) {
-        Image(
-//          painter = painterResource(id = R.drawable.ic_launcher_background), // FOR PREVIEW
-            painter = rememberGlidePainter(
-                post.userImgUrl,
-                fadeIn = true,
-                previewPlaceholder = R.drawable.abc_vector_test
-            ),
-            contentDescription = "UserImage",
-            modifier = Modifier
-                .size(44.dp)
-                .clip(CircleShape)
+    Row(modifier = Modifier.fillMaxWidth()) {
+        UserProfile(
+            profileImgUrl = post.userImgUrl,
+            userName = post.userName,
+            imageModifier = Modifier.size(44.dp).clip(CircleShape)
         )
-        Spacer(modifier = Modifier.padding(horizontal = 3.dp))
-        Column(modifier = Modifier.padding(5.dp)) {
-            Text(post.userName, style = AppTypography.body2,
-
-            )
-            Text("@${post.userName.split(" ")[0]}",
-                style = AppTypography.caption,
-                color = Color.Gray)
-        }
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
             modifier = Modifier.fillMaxWidth()
@@ -114,7 +97,9 @@ fun getPostCardFooter(post: Post) {
                 Icons.Rounded.Favorite,
                 "contentDescription",
                 tint = Red300,
-                modifier = Modifier.padding(horizontal = 3.dp).size(30.dp)
+                modifier = Modifier
+                    .padding(horizontal = 3.dp)
+                    .size(30.dp)
             )
             Text(post.likes.toString(), color = Color.Gray, style = AppTypography.button)
             Spacer(modifier = Modifier.padding(horizontal = 10.dp))
@@ -122,7 +107,9 @@ fun getPostCardFooter(post: Post) {
                 Icons.Rounded.Comment,
                 "contentDescription",
                 tint = Color.Gray,
-                modifier = Modifier.padding(horizontal = 3.dp).size(30.dp)
+                modifier = Modifier
+                    .padding(horizontal = 3.dp)
+                    .size(30.dp)
             )
             Text("${post.comments}", color = Color.Gray, style = AppTypography.button)
         }

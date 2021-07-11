@@ -10,7 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class PostRepository(
-    val service: BackendService,
+    private val service: BackendService,
 ) {
 
     companion object {

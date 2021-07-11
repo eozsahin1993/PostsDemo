@@ -12,12 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun getTopBar( onClick: () -> Unit = { }) {
-    TopAppBar(title = {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onClick) {
-                Icon(Icons.Filled.Menu,"")
-            }
-            Text("Posts")
+    TopAppBar(title = { Text("Posts")
+
+    }, navigationIcon = {
+        IconButton(onClick = onClick) {
+            Icon(Icons.Filled.Menu,"")
         }
     })
 }
