@@ -22,7 +22,6 @@ fun showPosts(posts: List<Post>) {
     LazyColumn {
         items(posts) { post ->
             getPostCard(post)
-            Spacer(modifier = Modifier.padding(10.dp))
         }
     }
 }

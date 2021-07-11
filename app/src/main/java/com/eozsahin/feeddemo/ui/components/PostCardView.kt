@@ -1,39 +1,43 @@
 package com.eozsahin.feeddemo.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.QuestionAnswer
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.rounded.Comment
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.eozsahin.feeddemo.R
-import com.eozsahin.feeddemo.data.PostData
 import com.eozsahin.feeddemo.ui.models.Post
 import com.eozsahin.feeddemo.ui.theme.AppTypography
-import androidx.compose.foundation.Image
+import com.eozsahin.feeddemo.ui.theme.Red300
 import com.google.accompanist.glide.rememberGlidePainter
 
 @Preview
 @Composable
 fun getPostCard(@PreviewParameter(PostProvider::class) post: Post) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp)
+        modifier = Modifier.fillMaxWidth().padding(start = 15.dp, end = 15.dp, top = 15.dp),
+        shape = RoundedCornerShape(20.dp),
+        elevation = 2.dp
     ) {
-        Column(modifier = Modifier.padding(15.dp)) {
+        Column(modifier = Modifier.padding(10.dp)) {
             getPostCardHeader(post)
             getPostCardContent(post)
             getPostCardFooter(post)
@@ -48,23 +52,33 @@ fun getPostCardHeader(post: Post) {
         modifier = Modifier.padding(5.dp)
     ) {
         Image(
+//          painter = painterResource(id = R.drawable.ic_launcher_background), // FOR PREVIEW
             painter = rememberGlidePainter(
                 post.userImgUrl,
-                fadeIn = true
+                fadeIn = true,
+                previewPlaceholder = R.drawable.abc_vector_test
             ),
             contentDescription = "UserImage",
             modifier = Modifier
-                .size(64.dp)
+                .size(44.dp)
                 .clip(CircleShape)
         )
+        Spacer(modifier = Modifier.padding(horizontal = 3.dp))
         Column(modifier = Modifier.padding(5.dp)) {
-            Text(post.userName,
-                style = AppTypography.body2,
+            Text(post.userName, style = AppTypography.body2,
 
             )
-            Text("x seconds ago",
+            Text("@${post.userName.split(" ")[0]}",
                 style = AppTypography.caption,
                 color = Color.Gray)
+        }
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            IconButton(onClick = {}) {
+                Icon(Icons.Default.MoreVert, contentDescription = "menu")
+            }
         }
     }
 }
@@ -74,39 +88,48 @@ fun getPostCardContent(post: Post) {
     Column {
         Text(
             post.title,
-            style = AppTypography.subtitle1,
+            style = AppTypography.body1,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(10.dp)
         )
         Text(
             post.body,
             modifier = Modifier.padding(start = 12.dp, end = 10.dp, bottom = 10.dp),
-            style = AppTypography.caption
+            style = AppTypography.body1,
         )
     }
 }
 
 @Composable
 fun getPostCardFooter(post: Post) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 5.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                Icons.Filled.Favorite,
+                Icons.Rounded.Favorite,
                 "contentDescription",
-                tint = Color.Magenta)
-            Text("${post.likes} likes")
-
+                tint = Red300,
+                modifier = Modifier.padding(horizontal = 3.dp).size(30.dp)
+            )
+            Text(post.likes.toString(), color = Color.Gray, style = AppTypography.button)
+            Spacer(modifier = Modifier.padding(horizontal = 10.dp))
             Icon(
-                Icons.Filled.QuestionAnswer,
+                Icons.Rounded.Comment,
                 "contentDescription",
-                tint = Color.Magenta)
-            Text("${post.comments} comments")
+                tint = Color.Gray,
+                modifier = Modifier.padding(horizontal = 3.dp).size(30.dp)
+            )
+            Text("${post.comments}", color = Color.Gray, style = AppTypography.button)
         }
 
         Row(verticalAlignment =  Alignment.CenterVertically, horizontalArrangement = Arrangement.End) {
-            Button(onClick = {
-                Log.i("emre", "tapped")
-            }, modifier = Modifier.clip(CircleShape)) {
-                Text("Add comment", style = AppTypography.caption)
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Share, contentDescription = "fd")
             }
         }
     }
