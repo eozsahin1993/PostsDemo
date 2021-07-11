@@ -1,9 +1,7 @@
 package com.eozsahin.feeddemo.ui.components
 
 import android.util.Log
-import android.widget.EditText
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,29 +9,26 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.QuestionAnswer
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Task
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.eozsahin.feeddemo.R
-import com.eozsahin.feeddemo.models.Post
-import com.eozsahin.feeddemo.ui.theme.AppTheme
+import com.eozsahin.feeddemo.data.PostData
+import com.eozsahin.feeddemo.ui.models.Post
 import com.eozsahin.feeddemo.ui.theme.AppTypography
-import com.google.android.material.chip.Chip
+import androidx.compose.foundation.Image
+import com.google.accompanist.glide.rememberGlidePainter
 
-@Preview()
+@Preview
 @Composable
-fun getPostCard(post: Post) {
+fun getPostCard(@PreviewParameter(PostProvider::class) post: Post) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp)
@@ -53,14 +48,17 @@ fun getPostCardHeader(post: Post) {
         modifier = Modifier.padding(5.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
+            painter = rememberGlidePainter(
+                post.userImgUrl,
+                fadeIn = true
+            ),
             contentDescription = "UserImage",
             modifier = Modifier
                 .size(64.dp)
                 .clip(CircleShape)
         )
         Column(modifier = Modifier.padding(5.dp)) {
-            Text("Alfred Sisley",
+            Text(post.userName,
                 style = AppTypography.body2,
 
             )
@@ -95,13 +93,13 @@ fun getPostCardFooter(post: Post) {
                 Icons.Filled.Favorite,
                 "contentDescription",
                 tint = Color.Magenta)
-            Text("15 likes")
+            Text("${post.likes} likes")
 
             Icon(
                 Icons.Filled.QuestionAnswer,
                 "contentDescription",
                 tint = Color.Magenta)
-            Text("13 comments")
+            Text("${post.comments} comments")
         }
 
         Row(verticalAlignment =  Alignment.CenterVertically, horizontalArrangement = Arrangement.End) {
@@ -112,16 +110,19 @@ fun getPostCardFooter(post: Post) {
             }
         }
     }
+}
 
-//    val textState = remember { mutableStateOf(TextFieldValue()) }
-//    OutlinedTextField(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(15.dp),
-//        placeholder = { Text("Add comment...")} ,
-//        value = textState.value,
-//        onValueChange = { textState.value = it }
-//    )
+class PostProvider: PreviewParameterProvider<Post> {
+    override val values = sequenceOf(getPreviewPost())
+
+    private fun getPreviewPost() = Post(
+        title = "This is a post title",
+        body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+        likes = 15,
+        comments = 20,
+        userName = "Emre Ozsahin",
+        userImgUrl = "https://picsum.photos/300/300"
+    )
 }
 
 
